@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админка — RyzenHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <a href="index.html" class="logo">
+        <img src="logo.svg" alt="RyzenHub" class="logo-img" onerror="this.style.display='none'">
+        <span class="logo-text">RyzenHub</span>
+      </a>
+      <a href="index.html" class="nav-cta">На сайт</a>
+    </nav>
+  </header>
+
+  <div class="admin-page">
+    <div id="loginBox" class="admin-login">
+      <h1>Админ-панель</h1>
+      <p>Введите пароль для просмотра заявок</p>
+      <input type="password" id="adminPass" placeholder="Пароль" autocomplete="current-password">
+      <button class="btn btn-primary btn-block" id="loginBtn">Войти</button>
+      <p style="margin-top:16px;font-size:12px;color:var(--text-tertiary)">По умолчанию: ryzen2026<br>(смените в app.js)</p>
+    </div>
+
+    <div id="adminPanel" style="display:none">
+      <h1 style="margin-bottom:8px">Заявки</h1>
+      <p style="color:var(--text-secondary);margin-bottom:24px">Хранятся в localStorage браузера. Для получения на телефон настройте Discord/Telegram в app.js</p>
+
+      <div class="admin-actions">
+        <button class="btn btn-secondary" id="refreshBtn">Обновить</button>
+        <button class="btn btn-small" id="clearBtn">Очистить все</button>
+        <button class="btn btn-small" id="logoutBtn">Выйти</button>
+      </div>
+
+      <div id="ordersContainer"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    const loginBox = document.getElementById("loginBox");
+    const adminPanel = document.getElementById("adminPanel");
+    const ordersContainer = document.getElementById("ordersContainer");
+
+    function isLoggedIn() {
+      return sessionStorage.getItem("ryzenhub_admin") === "1";
+    }
+
+    function renderOrders() {
+      const orders = window.RyzenHubAdmin.getOrders();
+      if (orders.length === 0) {
+        ordersContainer.innerHTML = '<p style="color:var(--text-secondary)">Пока нет заявок.</p>';
+        return;
+      }
+      ordersContainer.innerHTML = orders.map(o => `
+        <div class="order-card-admin">
+          <div class="oid">${o.id} · ${o.date}</div>
+          <div class="meta">
+            <strong>${o.name}</strong> · ${o.city}<br>
+            📞 ${o.phone} ${o.telegram !== "—" ? "· " + o.telegram : ""}<br>
+            Услуги: ${Array.isArray(o.services) ? o.services.join(", ") : o.services}<br>
+            Бюджет: ${o.budget}<br>
+            ${o.details && o.details !== "—" ? "Детали: " + o.details : ""}
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function showAdmin() {
+      loginBox.style.display = "none";
+      adminPanel.style.display = "block";
+      renderOrders();
+    }
+
+    if (isLoggedIn()) showAdmin();
+
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      const pass = document.getElementById("adminPass").value;
+      if (window.RyzenHubAdmin.checkPass(pass)) {
+        sessionStorage.setItem("ryzenhub_admin", "1");
+        showAdmin();
+      } else {
+        alert("Неверный пароль");
+      }
+    });
+
+    document.getElementById("adminPass")?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") document.getElementById("loginBtn").click();
+    });
+
+    document.getElementById("refreshBtn")?.addEventListener("click", renderOrders);
+    document.getElementById("clearBtn")?.addEventListener("click", () => {
+      if (confirm("Удалить все заявки?")) {
+        window.RyzenHubAdmin.clearOrders();
+        renderOrders();
+      }
+    });
+    document.getElementById("logoutBtn")?.addEventListener("click", () => {
+      sessionStorage.removeItem("ryzenhub_admin");
+      location.reload();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <rect width="120" height="120" rx="24" fill="#000"/>
+  <path d="M28 38v-12l18-8 10 10v14l-12 8H28z" fill="#00d4ff"/>
+  <path d="M28 70v12l18 8 10-10V66l-12-8H28z" fill="#00d4ff"/>
+  <rect x="22" y="32" width="6" height="10" rx="1" fill="#00d4ff"/>
+  <rect x="22" y="66" width="6" height="10" rx="1" fill="#00d4ff"/>
+  <rect x="22" y="48" width="6" height="12" rx="1" fill="#00d4ff"/>
+  <rect x="38" y="24" width="8" height="5" rx="1" fill="#00d4ff"/>
+  <rect x="38" y="91" width="8" height="5" rx="1" fill="#00d4ff"/>
+  <path d="M92 38v-12l-18-8-10 10v14l12 8h16z" fill="#ff6b00"/>
+  <path d="M92 70v12l-18 8-10-10V66l12-8h16z" fill="#ff6b00"/>
+  <rect x="92" y="32" width="6" height="10" rx="1" fill="#ff6b00"/>
+  <rect x="92" y="66" width="6" height="10" rx="1" fill="#ff6b00"/>
+  <rect x="92" y="48" width="6" height="12" rx="1" fill="#ff6b00"/>
+  <rect x="74" y="24" width="8" height="5" rx="1" fill="#ff6b00"/>
+  <rect x="74" y="91" width="8" height="5" rx="1" fill="#ff6b00"/>
+  <path d="M60 42l14 8v16l-14 8-14-8V50l14-8z" stroke="#222" stroke-width="6" fill="none"/>
+  <path d="M60 46l10 6v12l-10 6-10-6V52l10-6z" stroke="#444" stroke-width="2" fill="none"/>
+</svg>
