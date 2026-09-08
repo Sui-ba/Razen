@@ -1,7 +1,7 @@
 // ========== CONFIG ==========
 // Вставьте свой Discord Webhook URL (самый простой способ получать заявки)
 // Создать: Discord → Настройки сервера → Интеграции → Webhooks → Новый
-const DISCORD_WEBHOOK = ""; // например: "https://discord.com/api/webhooks/..."
+const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1546865666903113840/nKp6_ZQe6CY7RFt8C9bdTZueLtQxl1YrEBFLPtnT_Mo1I2D--8Fd4hrpiLeD5jsMf6R2"; // например: "https://discord.com/api/webhooks/..."
 
 // Или Telegram (нужен bot token + chat_id)
 // Создать бота: @BotFather → /newbot
