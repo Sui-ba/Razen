@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RyzenHub — Сборка и ремонт ПК в Томске | Под любой бюджет</title>
-  <meta name="description" content="Профессиональная сборка, ремонт и обслуживание компьютеров в Томске. Подбор комплектующих, чистка, установка Windows, апгрейд. Гарантия. Работаем с 2012 года.">
+  <meta name="description" content="Профессиональная сборка, ремонт и обслуживание компьютеров в Томске. Подбор комплектующих, чистка, установка Windows, апгрейд. Гарантия. Работаем с 2020 года.">
   <meta property="og:title" content="RyzenHub — Сборка и ремонт ПК">
-  <meta property="og:description" content="Сборка ПК на заказ, ремонт, чистка, апгрейд. Томск и вся Россия.">
+  <meta property="og:description" content="Сборка ПК на заказ, ремонт, чистка, апгрейд. Томск. Работаем с 2020 года.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -25,7 +25,8 @@
         <a href="#services">Услуги</a>
         <a href="#process">Как работаем</a>
         <a href="#order">Своя сборка</a>
-        <a href="#support">Гарантия</a>
+        <a href="#contacts">Контакты</a>
+        <a href="cabinet.html">Личный кабинет</a>
       </div>
       <a href="#order" class="nav-cta">Оставить заявку</a>
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню">
@@ -37,7 +38,8 @@
       <a href="#services">Услуги</a>
       <a href="#process">Как работаем</a>
       <a href="#order">Своя сборка</a>
-      <a href="#support">Гарантия</a>
+      <a href="#contacts">Контакты</a>
+      <a href="cabinet.html">Личный кабинет</a>
       <a href="#order" class="nav-cta">Оставить заявку</a>
     </div>
   </header>
@@ -47,34 +49,18 @@
     <div class="hero-content">
       <div class="hero-badge">
         <span class="badge-dot"></span>
-        5.0 · Работаем с 2012 · Томск
+        5.0 · Работаем с 2020 · Томск
       </div>
       <h1>Сборка и ремонт ПК<br><span class="gradient-text">под любой бюджет</span></h1>
-      <p class="hero-subtitle">
-        Индивидуальный подбор, профессиональная сборка, ремонт и настройка.
-        От офисных машин до мощных игровых систем. Гарантия и поддержка.
-      </p>
-      <div class="hero-buttons">
-        <a href="#builds" class="btn btn-primary">Готовые сборки</a>
-        <a href="#order" class="btn btn-secondary">Собрать свою</a>
+      <p class="hero-sub">Готовые конфигурации или индивидуальный подбор. Гарантия, чистка, апгрейд, установка ПО. Работаем аккуратно и по делу.</p>
+      <div class="hero-actions">
+        <a href="#order" class="btn btn-primary">Оставить заявку</a>
+        <a href="#builds" class="btn btn-ghost">Смотреть сборки</a>
       </div>
       <div class="hero-stats">
-        <div class="stat">
-          <div class="stat-value">13+</div>
-          <div class="stat-label">лет опыта</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">700+</div>
-          <div class="stat-label">довольных клиентов</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">480+</div>
-          <div class="stat-label">сборок с доставкой</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">~30 мин</div>
-          <div class="stat-label">время ответа</div>
-        </div>
+        <div><strong>6+</strong><span>лет опыта</span></div>
+        <div><strong>500+</strong><span>сборок и ремонтов</span></div>
+        <div><strong>~30 мин</strong><span>ответ на заявку</span></div>
       </div>
     </div>
   </section>
@@ -82,185 +68,115 @@
   <section class="section" id="builds">
     <div class="section-header">
       <h2>Готовые сборки</h2>
-      <p>Проверенные конфигурации под разные задачи. Можно взять как есть или адаптировать под ваш бюджет.</p>
+      <p>Проверенные конфигурации. Можно взять как есть или доработать под себя.</p>
     </div>
-
-    <div class="builds-filter">
+    <div class="filters">
       <button class="filter-btn active" data-filter="all">Все</button>
-      <button class="filter-btn" data-filter="office">Офис / Учёба</button>
+      <button class="filter-btn" data-filter="budget">Бюджет</button>
+      <button class="filter-btn" data-filter="office">Офис / учёба</button>
       <button class="filter-btn" data-filter="gaming">Игры</button>
-      <button class="filter-btn" data-filter="workstation">Работа / Монтаж</button>
-      <button class="filter-btn" data-filter="budget">Бюджетные</button>
+      <button class="filter-btn" data-filter="work">Монтаж / работа</button>
     </div>
-
     <div class="builds-grid" id="buildsGrid"></div>
   </section>
 
-  <section class="section" id="services">
+  <section class="section section-alt" id="services">
     <div class="section-header">
-      <h2>Наши услуги</h2>
-      <p>Полный спектр работ с компьютерами и ноутбуками. Честные цены, гарантия на все работы.</p>
+      <h2>Услуги</h2>
+      <p>Всё, что нужно для комфортной работы и игр.</p>
     </div>
-
     <div class="services-grid">
-      <article class="service-card">
-        <div class="service-img">
-          <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600&q=80" alt="Сборка ПК" loading="lazy">
-        </div>
-        <div class="service-body">
-          <h3>Сборка ПК на заказ</h3>
-          <p>Подберём комплектующие под ваш бюджет и задачи. Собираем, устанавливаем ОС, тестируем, даём гарантию.</p>
-          <ul class="service-list">
-            <li>Подбор конфигурации</li>
-            <li>Сборка и кабель-менеджмент</li>
-            <li>Установка Windows + драйверы</li>
-            <li>Стресс-тесты и настройка</li>
-          </ul>
-          <div class="service-price">от 2 500 ₽</div>
-        </div>
-      </article>
-
-      <article class="service-card">
-        <div class="service-img">
-          <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&q=80" alt="Ремонт ПК" loading="lazy">
-        </div>
-        <div class="service-body">
-          <h3>Ремонт ПК и ноутбуков</h3>
-          <p>Диагностика и ремонт любой сложности. Замена комплектующих, пайка, восстановление после залития.</p>
-          <ul class="service-list">
-            <li>Бесплатная диагностика*</li>
-            <li>Замена HDD/SSD, ОЗУ, БП</li>
-            <li>Ремонт видеокарт и матплат</li>
-            <li>Восстановление данных</li>
-          </ul>
-          <div class="service-price">от 500 ₽</div>
-        </div>
-      </article>
-
-      <article class="service-card">
-        <div class="service-img">
-          <img src="https://images.unsplash.com/photo-1625842268584-8f3296236761?w=600&q=80" alt="Чистка ПК" loading="lazy">
-        </div>
-        <div class="service-body">
-          <h3>Чистка и обслуживание</h3>
-          <p>Полная чистка от пыли, замена термопасты, оптимизация системы. Компьютер станет тише и холоднее.</p>
-          <ul class="service-list">
-            <li>Чистка системы охлаждения</li>
-            <li>Замена термопасты/термопрокладок</li>
-            <li>Удаление вирусов</li>
-            <li>Оптимизация Windows</li>
-          </ul>
-          <div class="service-price">от 800 ₽</div>
-        </div>
-      </article>
-
-      <article class="service-card">
-        <div class="service-img">
-          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80" alt="Апгрейд" loading="lazy">
-        </div>
-        <div class="service-body">
-          <h3>Апгрейд и модернизация</h3>
-          <p>Обновим ваш ПК: добавим память, SSD, видеокарту. Подскажем, что выгоднее — апгрейд или новая сборка.</p>
-          <ul class="service-list">
-            <li>Подбор совместимых деталей</li>
-            <li>Установка и настройка</li>
-            <li>Перенос данных</li>
-            <li>Консультация бесплатно</li>
-          </ul>
-          <div class="service-price">от 1 000 ₽</div>
-        </div>
-      </article>
-
-      <article class="service-card">
-        <div class="service-img">
-          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80" alt="ПО" loading="lazy">
-        </div>
-        <div class="service-body">
-          <h3>Установка ПО и настройка</h3>
-          <p>Windows 10/11, драйверы, офисные пакеты, игры, антивирус. Настройка под ваши задачи.</p>
-          <ul class="service-list">
-            <li>Установка ОС с нуля</li>
-            <li>Драйверы и обновления</li>
-            <li>Офис, браузеры, утилиты</li>
-            <li>Настройка BIOS/UEFI</li>
-          </ul>
-          <div class="service-price">от 700 ₽</div>
-        </div>
-      </article>
-
-      <article class="service-card">
-        <div class="service-img">
-          <img src="https://images.unsplash.com/photo-1544197150-b99a576b4d3a?w=600&q=80" alt="Выезд" loading="lazy">
-        </div>
-        <div class="service-body">
-          <h3>Выезд и доставка</h3>
-          <p>Выезд мастера по Томску. Доставка готовых сборок по городу и в регионы через Авито Доставку.</p>
-          <ul class="service-list">
-            <li>Выезд в пределах города</li>
-            <li>Самовывоз в Томске</li>
-            <li>Доставка по России</li>
-            <li>Надёжная упаковка</li>
-          </ul>
-          <div class="service-price">по договорённости</div>
-        </div>
-      </article>
+      <div class="service-card">
+        <div class="service-icon">🖥️</div>
+        <h3>Сборка ПК</h3>
+        <p>Подбор комплектующих, сборка, настройка BIOS, установка системы и драйверов.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <h3>Ремонт</h3>
+        <p>Диагностика, замена деталей, восстановление после перегрева и сбоев.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🧹</div>
+        <h3>Чистка и термопаста</h3>
+        <p>Полная чистка от пыли, замена термопасты/термопрокладок, проверка температур.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⬆️</div>
+        <h3>Апгрейд</h3>
+        <p>Увеличение ОЗУ, SSD, видеокарты, процессора с проверкой совместимости.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💿</div>
+        <h3>Установка ПО</h3>
+        <p>Windows, драйверы, Office, необходимые программы и оптимизация.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📦</div>
+        <h3>Доставка</h3>
+        <p>Авито Доставка и другие службы. Надёжная упаковка. Самовывоз в Томске.</p>
+      </div>
     </div>
   </section>
 
-  <section class="section section-dark" id="process">
+  <section class="section" id="process">
     <div class="section-header">
       <h2>Как мы работаем</h2>
-      <p>Прозрачный процесс от заявки до готового компьютера</p>
+      <p>Прозрачный процесс от заявки до выдачи.</p>
     </div>
-    <div class="process-grid">
-      <div class="process-step">
-        <div class="process-num">01</div>
+    <div class="process-steps">
+      <div class="process-item">
+        <div class="process-num">1</div>
         <h3>Заявка</h3>
-        <p>Оставляете заявку на сайте или пишете в Авито. Указываете задачи, бюджет и город.</p>
+        <p>Оставляете контакты и пожелания. Отвечаем обычно в течение 30 минут.</p>
       </div>
-      <div class="process-step">
-        <div class="process-num">02</div>
-        <h3>Подбор</h3>
-        <p>Составляем конфигурацию или план ремонта, согласовываем с вами все детали и сроки.</p>
+      <div class="process-item">
+        <div class="process-num">2</div>
+        <h3>Подбор / диагностика</h3>
+        <p>Предлагаем варианты под бюджет или диагностируем проблему.</p>
       </div>
-      <div class="process-step">
-        <div class="process-num">03</div>
+      <div class="process-item">
+        <div class="process-num">3</div>
+        <h3>Согласование</h3>
+        <p>Утверждаем конфигурацию или план ремонта, сроки и стоимость.</p>
+      </div>
+      <div class="process-item">
+        <div class="process-num">4</div>
         <h3>Работа</h3>
-        <p>Собираем / ремонтируем, устанавливаем систему, тестируем стабильность под нагрузкой.</p>
+        <p>Собираем / чиним, тестируем, держим вас в курсе статуса в личном кабинете.</p>
       </div>
-      <div class="process-step">
-        <div class="process-num">04</div>
+      <div class="process-item">
+        <div class="process-num">5</div>
         <h3>Выдача</h3>
-        <p>Самовывоз в Томске или доставка. Гарантия на работы и комплектующие. Остаёмся на связи.</p>
+        <p>Проверка вместе с вами, гарантия, рекомендации по использованию.</p>
       </div>
     </div>
   </section>
 
-  <section class="section" id="order">
+  <section class="section section-alt" id="order">
     <div class="section-header">
-      <h2>Своя сборка или услуга</h2>
-      <p>Выберите готовую выше или опишите задачу — подберём конфигурацию под бюджет. Ответ ~30 мин.</p>
+      <h2>Своя сборка / заявка</h2>
+      <p>Заполните короткую анкету — мы свяжемся и предложим варианты.</p>
     </div>
-
-    <div class="form-container">
-      <form id="orderForm" class="order-form">
-        <div class="form-progress">
-          <div class="progress-step active" data-step="1">1. Контакты</div>
-          <div class="progress-step" data-step="2">2. Услуга</div>
-          <div class="progress-step" data-step="3">3. Детали</div>
-          <div class="progress-step" data-step="4">4. Готово</div>
+    <div class="order-layout">
+      <form class="order-form" id="orderForm" onsubmit="return false;">
+        <div class="step-indicator">
+          <span class="current">1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
         </div>
 
-        <div class="form-step active" data-step="1">
-          <h3>Контактные данные</h3>
+        <div class="order-step active" id="step1">
+          <h3>Контакты</h3>
           <div class="form-row">
             <div class="form-group">
               <label for="name">Имя *</label>
               <input type="text" id="name" name="name" placeholder="Как к вам обращаться" required>
             </div>
             <div class="form-group">
-              <label for="city">Город *</label>
-              <input type="text" id="city" name="city" placeholder="Томск, Москва..." required>
+              <label for="city">Город</label>
+              <input type="text" id="city" name="city" placeholder="Томск" value="Томск">
             </div>
           </div>
           <div class="form-row">
@@ -269,133 +185,132 @@
               <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
             </div>
             <div class="form-group">
-              <label for="telegram">Telegram / VK</label>
-              <input type="text" id="telegram" name="telegram" placeholder="@username или ссылка">
-            </div>
-          </div>
-          <div class="form-actions">
-            <button type="button" class="btn btn-primary next-step">Далее →</button>
-          </div>
-        </div>
-
-        <div class="form-step" data-step="2">
-          <h3>Какая услуга нужна?</h3>
-          <p class="form-hint">Можно выбрать несколько</p>
-          <div class="purpose-grid">
-            <label class="purpose-card">
-              <input type="checkbox" name="service" value="assembly">
-              <div class="purpose-content">
-                <span class="purpose-icon">🖥️</span>
-                <span class="purpose-title">Сборка ПК</span>
-              </div>
-            </label>
-            <label class="purpose-card">
-              <input type="checkbox" name="service" value="repair">
-              <div class="purpose-content">
-                <span class="purpose-icon">🔧</span>
-                <span class="purpose-title">Ремонт</span>
-              </div>
-            </label>
-            <label class="purpose-card">
-              <input type="checkbox" name="service" value="cleaning">
-              <div class="purpose-content">
-                <span class="purpose-icon">💨</span>
-                <span class="purpose-title">Чистка</span>
-              </div>
-            </label>
-            <label class="purpose-card">
-              <input type="checkbox" name="service" value="upgrade">
-              <div class="purpose-content">
-                <span class="purpose-icon">⬆️</span>
-                <span class="purpose-title">Апгрейд</span>
-              </div>
-            </label>
-            <label class="purpose-card">
-              <input type="checkbox" name="service" value="software">
-              <div class="purpose-content">
-                <span class="purpose-icon">💿</span>
-                <span class="purpose-title">Установка ПО</span>
-              </div>
-            </label>
-            <label class="purpose-card">
-              <input type="checkbox" name="service" value="other">
-              <div class="purpose-content">
-                <span class="purpose-icon">💬</span>
-                <span class="purpose-title">Другое</span>
-              </div>
-            </label>
-          </div>
-          <div class="form-actions">
-            <button type="button" class="btn btn-secondary prev-step">← Назад</button>
-            <button type="button" class="btn btn-primary next-step">Далее →</button>
-          </div>
-        </div>
-
-        <div class="form-step" data-step="3">
-          <h3>Детали и бюджет</h3>
-          <div class="form-group">
-            <label for="budget">Ориентировочный бюджет (₽)</label>
-            <div class="budget-options">
-              <label class="budget-option"><input type="radio" name="budget" value="до 30 000"><span>до 30 000</span></label>
-              <label class="budget-option"><input type="radio" name="budget" value="30–50 000"><span>30–50 000</span></label>
-              <label class="budget-option"><input type="radio" name="budget" value="50–80 000"><span>50–80 000</span></label>
-              <label class="budget-option"><input type="radio" name="budget" value="80–120 000"><span>80–120 000</span></label>
-              <label class="budget-option"><input type="radio" name="budget" value="120–200 000"><span>120–200 000</span></label>
-              <label class="budget-option"><input type="radio" name="budget" value="от 200 000"><span>от 200 000</span></label>
+              <label for="email">Email (для входа в кабинет)</label>
+              <input type="email" id="email" name="email" placeholder="name@mail.ru">
             </div>
           </div>
           <div class="form-group">
-            <label for="details">Описание задачи / пожелания</label>
-            <textarea id="details" name="details" rows="4" placeholder="Для чего нужен ПК, какие игры/программы, сроки, цвет корпуса, тихая система..."></textarea>
+            <label for="telegram">Telegram / VK (по желанию)</label>
+            <input type="text" id="telegram" name="telegram" placeholder="@username или ссылка">
+          </div>
+          <button type="button" class="btn btn-primary" id="toStep2">Далее →</button>
+        </div>
+
+        <div class="order-step" id="step2">
+          <h3>Что нужно?</h3>
+          <div class="checkbox-grid">
+            <label class="check-item"><input type="checkbox" name="service" value="Сборка ПК"> Сборка ПК</label>
+            <label class="check-item"><input type="checkbox" name="service" value="Ремонт"> Ремонт</label>
+            <label class="check-item"><input type="checkbox" name="service" value="Чистка"> Чистка / термопаста</label>
+            <label class="check-item"><input type="checkbox" name="service" value="Апгрейд"> Апгрейд</label>
+            <label class="check-item"><input type="checkbox" name="service" value="Установка ПО"> Установка ПО</label>
+            <label class="check-item"><input type="checkbox" name="service" value="Консультация"> Консультация</label>
           </div>
           <div class="form-actions">
-            <button type="button" class="btn btn-secondary prev-step">← Назад</button>
-            <button type="submit" class="btn btn-primary">Отправить заявку</button>
+            <button type="button" class="btn btn-ghost" id="backTo1">← Назад</button>
+            <button type="button" class="btn btn-primary" id="toStep3">Далее →</button>
           </div>
         </div>
 
-        <div class="form-step" data-step="4">
-          <div class="success-message">
+        <div class="order-step" id="step3">
+          <h3>Бюджет и детали</h3>
+          <div class="form-group">
+            <label for="budget">Бюджет</label>
+            <select id="budget" name="budget">
+              <option value="до 40 000 ₽">до 40 000 ₽</option>
+              <option value="40–70 000 ₽">40–70 000 ₽</option>
+              <option value="70–110 000 ₽">70–110 000 ₽</option>
+              <option value="110–160 000 ₽">110–160 000 ₽</option>
+              <option value="от 160 000 ₽">от 160 000 ₽</option>
+              <option value="Ремонт / без сборки">Ремонт / без сборки</option>
+              <option value="Пока не знаю">Пока не знаю</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="details">Пожелания / описание проблемы</label>
+            <textarea id="details" name="details" rows="4" placeholder="Игры, программы, симптомы неисправности..."></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost" id="backTo2">← Назад</button>
+            <button type="button" class="btn btn-primary" id="submitOrder">Отправить заявку</button>
+          </div>
+        </div>
+
+        <div class="order-step" id="step4">
+          <div class="success-box">
             <div class="success-icon">✓</div>
             <h3>Заявка принята!</h3>
-            <p>Мы свяжемся с вами в ближайшее время (обычно в течение 30 минут в рабочее время).</p>
-            <p class="success-id">Номер заявки: <strong id="orderId"></strong></p>
-            <div class="success-actions">
-              <a href="https://www.avito.ru/brands/89dc113e21b44dd1eb09e5841e2e9100" target="_blank" rel="noopener" class="btn btn-primary">Профиль на Авито</a>
-              <button type="button" class="btn btn-secondary" id="newOrderBtn">Новая заявка</button>
+            <p>Номер заявки: <strong id="orderId">—</strong></p>
+            <p>Мы свяжемся с вами в ближайшее время.</p>
+            <div id="credBox" class="cred-box" style="display:none;">
+              <p><strong>Создан личный кабинет</strong></p>
+              <p>Логин: <code id="credLogin"></code></p>
+              <p>Временный пароль: <code id="credPass"></code></p>
+              <p class="cred-hint">При первом входе система попросит сменить пароль. Сохраните данные.</p>
+              <a href="cabinet.html" class="btn btn-primary btn-block" style="margin-top:12px;">Войти в кабинет</a>
             </div>
+            <button type="button" class="btn btn-ghost" id="newOrderBtn" style="margin-top:16px;">Новая заявка</button>
           </div>
         </div>
       </form>
 
-      <div class="orders-side">
+      <aside class="order-aside">
         <div class="side-card">
-          <h3>Или напишите напрямую</h3>
-          <p>Быстрее всего ответим в Авито или Telegram.</p>
-          <a href="https://www.avito.ru/brands/89dc113e21b44dd1eb09e5841e2e9100" target="_blank" rel="noopener" class="btn btn-primary btn-block">Открыть Авито</a>
-          <p class="side-note">Томск · Ответ ~30 минут</p>
+          <h4>Написать на Авито</h4>
+          <p>Можно сразу написать по объявлению — ответим быстро.</p>
+          <a href="https://www.avito.ru/tomsk/predlozheniya_uslug/remont_i_sborka_pk_8341329276?utm_campaign=native&utm_medium=item_page_android&utm_source=soc_sharing_seller" target="_blank" rel="noopener" class="btn btn-primary btn-block">Открыть объявление на Авито</a>
         </div>
-        <div class="side-card side-admin">
-          <p class="admin-hint">Админка для владельца</p>
-          <a href="admin.html" class="btn btn-small">Войти в админку</a>
+        <div class="side-card">
+          <h4>Группа ВКонтакте</h4>
+          <p>Новости, примеры работ и общение.</p>
+          <a href="https://vk.ru/voronpc" target="_blank" rel="noopener" class="btn btn-ghost btn-block">vk.ru/voronpc</a>
         </div>
-      </div>
+        <div class="side-card">
+          <h4>Телефоны</h4>
+          <p><a href="tel:+79528096532" class="phone-link">+7 952 809-65-32</a></p>
+          <p><a href="tel:+79539183883" class="phone-link">+7 953 918-38-83</a></p>
+          <p class="side-note">Нажмите, чтобы позвонить</p>
+        </div>
+      </aside>
     </div>
   </section>
 
-  <section class="section section-dark" id="support">
+  <section class="section" id="contacts">
     <div class="section-header">
-      <h2>Поддержка и гарантия</h2>
-      <p>Мы остаёмся на связи после покупки</p>
+      <h2>Контакты</h2>
+      <p>Свяжитесь удобным способом — ответим быстро.</p>
+    </div>
+    <div class="contacts-grid">
+      <a href="tel:+79528096532" class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h3>+7 952 809-65-32</h3>
+        <p>Позвонить</p>
+      </a>
+      <a href="tel:+79539183883" class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h3>+7 953 918-38-83</h3>
+        <p>Позвонить</p>
+      </a>
+      <a href="https://vk.ru/voronpc" target="_blank" rel="noopener" class="contact-card">
+        <div class="contact-icon">💬</div>
+        <h3>ВКонтакте</h3>
+        <p>vk.ru/voronpc</p>
+      </a>
+      <a href="https://www.avito.ru/tomsk/predlozheniya_uslug/remont_i_sborka_pk_8341329276?utm_campaign=native&utm_medium=item_page_android&utm_source=soc_sharing_seller" target="_blank" rel="noopener" class="contact-card">
+        <div class="contact-icon">📦</div>
+        <h3>Авито</h3>
+        <p>Написать по объявлению</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="support">
+    <div class="section-header">
+      <h2>Гарантия и поддержка</h2>
     </div>
     <div class="support-grid">
       <div class="support-item">
-        <div class="support-icon">🛠️</div>
-        <h3>Настройка и ПО</h3>
-        <p>Устанавливаем Windows, драйверы, базовый софт. Оптимизируем систему под ваши задачи.</p>
-      </div>
-      <div class="support-item">
-        <div class="support-icon">📦</div>
+        <div class="support-icon">🛡️</div>
         <h3>Гарантия</h3>
         <p>Гарантия на комплектующие и сборку. Помогаем с гарантийными случаями у поставщиков.</p>
       </div>
@@ -419,30 +334,31 @@
           <img src="logo.svg" alt="RyzenHub" class="logo-img" onerror="this.style.display='none'">
           <span class="logo-text">RyzenHub</span>
         </a>
-        <p>Сборка, ремонт и обслуживание ПК в Томске. Работаем с 2012 года.</p>
+        <p>Сборка, ремонт и обслуживание ПК в Томске. Работаем с 2020 года.</p>
       </div>
       <div class="footer-links">
         <h4>Разделы</h4>
         <a href="#builds">Готовые сборки</a>
         <a href="#services">Услуги</a>
         <a href="#order">Своя сборка</a>
-        <a href="#support">Гарантия</a>
+        <a href="cabinet.html">Личный кабинет</a>
       </div>
       <div class="footer-links">
         <h4>Документы</h4>
         <a href="agreement.html">Пользовательское соглашение</a>
         <a href="privacy.html">Политика конфиденциальности</a>
-        <a href="admin.html">Админ-панель</a>
       </div>
       <div class="footer-links">
         <h4>Контакты</h4>
-        <a href="https://www.avito.ru/brands/89dc113e21b44dd1eb09e5841e2e9100" target="_blank" rel="noopener">Авито-профиль</a>
+        <a href="tel:+79528096532">+7 952 809-65-32</a>
+        <a href="tel:+79539183883">+7 953 918-38-83</a>
+        <a href="https://vk.ru/voronpc" target="_blank" rel="noopener">ВКонтакте</a>
+        <a href="https://www.avito.ru/tomsk/predlozheniya_uslug/remont_i_sborka_pk_8341329276" target="_blank" rel="noopener">Авито</a>
         <p>г. Томск</p>
-        <p>Ответ ~30 мин</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2012–2026 RyzenHub. Все права защищены.</p>
+      <p>© 2020–2026 RyzenHub. Все права защищены.</p>
       <p>Сайт не является публичной офертой.</p>
     </div>
   </footer>

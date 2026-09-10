@@ -3,9 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Админка — RyzenHub</title>
+  <title>Админ-панель — RyzenHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .admin-wrap { max-width: 1100px; margin: 80px auto 40px; padding: 0 20px; }
+    .login-box { max-width: 360px; margin: 120px auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; }
+    .login-box h1 { font-size: 22px; margin-bottom: 8px; }
+    .login-box p { color: var(--text-secondary); font-size: 14px; margin-bottom: 20px; }
+    .admin-toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; align-items: center; }
+    .admin-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .admin-tab { padding: 8px 16px; border-radius: 999px; background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text-secondary); cursor: pointer; font-size: 13px; }
+    .admin-tab.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+    .order-card-admin { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; transition: border-color .2s; }
+    .order-card-admin:hover { border-color: var(--border-light); }
+    .order-card-admin .oid { font-size: 12px; color: var(--text-tertiary); margin-bottom: 6px; }
+    .order-card-admin .meta { font-size: 14px; line-height: 1.55; }
+    .status-badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; margin-top: 8px; }
+    .status-select { margin-top: 10px; padding: 6px 10px; border-radius: 8px; background: var(--bg); border: 1px solid var(--border); color: var(--text); font-size: 13px; }
+    .admin-note { margin-top: 8px; width: 100%; padding: 8px; border-radius: 8px; background: var(--bg); border: 1px solid var(--border); color: var(--text); font-size: 13px; resize: vertical; min-height: 40px; }
+    .admin-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .history-list { margin-top: 10px; font-size: 12px; color: var(--text-secondary); }
+    .history-list li { margin-bottom: 4px; }
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; }
+    .stat-card strong { display: block; font-size: 22px; color: var(--accent); }
+    .stat-card span { font-size: 12px; color: var(--text-secondary); }
+  </style>
 </head>
 <body>
   <header class="header">
@@ -18,22 +43,34 @@
     </nav>
   </header>
 
-  <div class="admin-page">
-    <div id="loginBox" class="admin-login">
-      <h1>Админ-панель</h1>
-      <p>Введите пароль для просмотра заявок</p>
-      <input type="password" id="adminPass" placeholder="Пароль" autocomplete="current-password">
-      <button class="btn btn-primary btn-block" id="loginBtn">Войти</button>
-      <p style="margin-top:16px;font-size:12px;color:var(--text-tertiary)">По умолчанию: ryzen2026<br>(смените в app.js)</p>
+  <div class="admin-wrap">
+    <div id="loginBox" class="login-box">
+      <h1>Вход в админку</h1>
+      <p>Введите пароль, который вы задали в app.js (ADMIN_PASS).</p>
+      <div class="form-group">
+        <label for="adminPass">Пароль</label>
+        <input type="password" id="adminPass" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary btn-block" id="loginBtn" style="margin-top:16px;">Войти</button>
     </div>
 
-    <div id="adminPanel" style="display:none">
-      <h1 style="margin-bottom:8px">Заявки</h1>
-      <p style="color:var(--text-secondary);margin-bottom:24px">Хранятся в localStorage браузера. Для получения на телефон настройте Discord/Telegram в app.js</p>
+    <div id="adminPanel" style="display:none;">
+      <h1 style="margin-bottom:8px;">Админ-панель</h1>
+      <p style="color:var(--text-secondary); margin-bottom:20px;">Заявки, статусы и переписка. Данные хранятся локально в этом браузере.</p>
 
-      <div class="admin-actions">
-        <button class="btn btn-secondary" id="refreshBtn">Обновить</button>
-        <button class="btn btn-small" id="clearBtn">Очистить все</button>
+      <div class="stats-row" id="statsRow"></div>
+
+      <div class="admin-tabs" id="adminTabs">
+        <button class="admin-tab active" data-status="all">Все</button>
+        <button class="admin-tab" data-status="new">Новые</button>
+        <button class="admin-tab" data-status="in_progress">В работе</button>
+        <button class="admin-tab" data-status="waiting_parts">Ждём запчасти</button>
+        <button class="admin-tab" data-status="ready">Готово</button>
+        <button class="admin-tab" data-status="done">Завершённые</button>
+      </div>
+
+      <div class="admin-toolbar">
+        <button class="btn btn-small" id="refreshBtn">Обновить</button>
         <button class="btn btn-small" id="logoutBtn">Выйти</button>
       </div>
 
@@ -46,29 +83,100 @@
     const loginBox = document.getElementById("loginBox");
     const adminPanel = document.getElementById("adminPanel");
     const ordersContainer = document.getElementById("ordersContainer");
+    let currentFilter = "all";
 
     function isLoggedIn() {
       return sessionStorage.getItem("ryzenhub_admin") === "1";
     }
 
+    function statusLabel(id) {
+      const s = (window.RyzenHubAdmin.STATUSES || []).find(x => x.id === id);
+      return s ? s.label : id;
+    }
+    function statusColor(id) {
+      const s = (window.RyzenHubAdmin.STATUSES || []).find(x => x.id === id);
+      return s ? s.color : "#aaa";
+    }
+
+    function renderStats(orders) {
+      const counts = { total: orders.length, new: 0, in_progress: 0, ready: 0, done: 0 };
+      orders.forEach(o => {
+        if (o.status === "new" || o.status === "review") counts.new++;
+        if (o.status === "in_progress" || o.status === "waiting_parts") counts.in_progress++;
+        if (o.status === "ready") counts.ready++;
+        if (o.status === "done") counts.done++;
+      });
+      document.getElementById("statsRow").innerHTML = `
+        <div class="stat-card"><strong>${counts.total}</strong><span>Всего</span></div>
+        <div class="stat-card"><strong>${counts.new}</strong><span>Новые</span></div>
+        <div class="stat-card"><strong>${counts.in_progress}</strong><span>В работе</span></div>
+        <div class="stat-card"><strong>${counts.ready}</strong><span>Готово</span></div>
+        <div class="stat-card"><strong>${counts.done}</strong><span>Завершено</span></div>
+      `;
+    }
+
     function renderOrders() {
-      const orders = window.RyzenHubAdmin.getOrders();
+      let orders = window.RyzenHubAdmin.getOrders();
+      renderStats(orders);
+      if (currentFilter !== "all") {
+        if (currentFilter === "new") orders = orders.filter(o => o.status === "new" || o.status === "review");
+        else if (currentFilter === "in_progress") orders = orders.filter(o => o.status === "in_progress" || o.status === "waiting_parts");
+        else orders = orders.filter(o => o.status === currentFilter);
+      }
       if (orders.length === 0) {
-        ordersContainer.innerHTML = '<p style="color:var(--text-secondary)">Пока нет заявок.</p>';
+        ordersContainer.innerHTML = '<p style="color:var(--text-secondary)">Нет заявок по этому фильтру.</p>';
         return;
       }
-      ordersContainer.innerHTML = orders.map(o => `
-        <div class="order-card-admin">
+      const statusOptions = (window.RyzenHubAdmin.STATUSES || []).map(s =>
+        `<option value="${s.id}">${s.label}</option>`
+      ).join("");
+
+      ordersContainer.innerHTML = orders.map(o => {
+        const hist = (o.statusHistory || []).slice().reverse().slice(0, 5).map(h =>
+          `<li>${h.at} — ${statusLabel(h.status)}${h.note ? ": " + h.note : ""}</li>`
+        ).join("");
+        return `
+        <div class="order-card-admin" data-id="${o.id}">
           <div class="oid">${o.id} · ${o.date}</div>
           <div class="meta">
             <strong>${o.name}</strong> · ${o.city}<br>
-            📞 ${o.phone} ${o.telegram !== "—" ? "· " + o.telegram : ""}<br>
+            📞 <a href="tel:${o.phone.replace(/\\D/g,'')}" style="color:var(--accent)">${o.phone}</a>
+            ${o.email ? " · " + o.email : ""}
+            ${o.telegram && o.telegram !== "—" ? " · " + o.telegram : ""}<br>
             Услуги: ${Array.isArray(o.services) ? o.services.join(", ") : o.services}<br>
             Бюджет: ${o.budget}<br>
             ${o.details && o.details !== "—" ? "Детали: " + o.details : ""}
           </div>
-        </div>
-      `).join("");
+          <span class="status-badge" style="background:${statusColor(o.status)}22;color:${statusColor(o.status)}">${statusLabel(o.status)}</span>
+          <div>
+            <select class="status-select" data-id="${o.id}">
+              ${statusOptions}
+            </select>
+          </div>
+          <textarea class="admin-note" data-id="${o.id}" placeholder="Комментарий к смене статуса (необязательно)"></textarea>
+          <div class="admin-actions">
+            <button class="btn btn-small btn-primary apply-status" data-id="${o.id}">Применить статус</button>
+          </div>
+          ${hist ? `<ul class="history-list">${hist}</ul>` : ""}
+        </div>`;
+      }).join("");
+
+      // set current values
+      ordersContainer.querySelectorAll(".status-select").forEach(sel => {
+        const id = sel.dataset.id;
+        const ord = orders.find(x => x.id === id);
+        if (ord) sel.value = ord.status || "new";
+      });
+
+      ordersContainer.querySelectorAll(".apply-status").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.id;
+          const sel = ordersContainer.querySelector(`.status-select[data-id="${id}"]`);
+          const note = ordersContainer.querySelector(`.admin-note[data-id="${id}"]`);
+          window.RyzenHubAdmin.setStatus(id, sel.value, note?.value || "");
+          renderOrders();
+        });
+      });
     }
 
     function showAdmin() {
@@ -79,27 +187,29 @@
 
     if (isLoggedIn()) showAdmin();
 
-    document.getElementById("loginBtn").addEventListener("click", () => {
+    document.getElementById("loginBtn").addEventListener("click", async () => {
       const pass = document.getElementById("adminPass").value;
-      if (window.RyzenHubAdmin.checkPass(pass)) {
+      if (await window.RyzenHubAdmin.checkPass(pass)) {
         sessionStorage.setItem("ryzenhub_admin", "1");
         showAdmin();
       } else {
         alert("Неверный пароль");
       }
     });
-
     document.getElementById("adminPass")?.addEventListener("keydown", (e) => {
       if (e.key === "Enter") document.getElementById("loginBtn").click();
     });
 
-    document.getElementById("refreshBtn")?.addEventListener("click", renderOrders);
-    document.getElementById("clearBtn")?.addEventListener("click", () => {
-      if (confirm("Удалить все заявки?")) {
-        window.RyzenHubAdmin.clearOrders();
+    document.querySelectorAll(".admin-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".admin-tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        currentFilter = tab.dataset.status;
         renderOrders();
-      }
+      });
     });
+
+    document.getElementById("refreshBtn")?.addEventListener("click", renderOrders);
     document.getElementById("logoutBtn")?.addEventListener("click", () => {
       sessionStorage.removeItem("ryzenhub_admin");
       location.reload();

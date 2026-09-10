@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Личный кабинет — RyzenHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cab-wrap { max-width: 800px; margin: 90px auto 40px; padding: 0 20px; }
+    .cab-login { max-width: 400px; margin: 100px auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; }
+    .cab-login h1 { font-size: 22px; margin-bottom: 6px; }
+    .cab-login p { color: var(--text-secondary); font-size: 14px; margin-bottom: 20px; }
+    .order-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; }
+    .order-item .oid { font-size: 12px; color: var(--text-tertiary); }
+    .status-badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; margin: 8px 0; }
+    .change-pass-box { background: var(--orange-soft); border: 1px solid rgba(255,107,0,.3); border-radius: 12px; padding: 16px; margin-bottom: 20px; }
+    .empty-state { text-align: center; padding: 40px 20px; color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <a href="index.html" class="logo">
+        <img src="logo.svg" alt="RyzenHub" class="logo-img" onerror="this.style.display='none'">
+        <span class="logo-text">RyzenHub</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">На сайт</a>
+        <a href="index.html#order">Оставить заявку</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="cab-wrap">
+    <div id="loginView" class="cab-login">
+      <h1>Личный кабинет</h1>
+      <p>Логин — ваш телефон или email из заявки. Пароль выдаётся автоматически при первой заявке.</p>
+      <div class="form-group">
+        <label for="loginInput">Телефон или email</label>
+        <input type="text" id="loginInput" placeholder="+7... или mail@...">
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label for="passInput">Пароль</label>
+        <input type="password" id="passInput" placeholder="••••••••">
+      </div>
+      <button class="btn btn-primary btn-block" id="doLogin" style="margin-top:16px;">Войти</button>
+      <p style="margin-top:16px;font-size:13px;color:var(--text-tertiary);">Ещё нет аккаунта? <a href="index.html#order" style="color:var(--accent);">Оставьте заявку</a> — кабинет создастся сам.</p>
+    </div>
+
+    <div id="forceChangeView" style="display:none;" class="cab-login">
+      <h1>Смените пароль</h1>
+      <p>Это первый вход. Придумайте новый надёжный пароль.</p>
+      <div class="form-group">
+        <label for="oldPass">Текущий (временный) пароль</label>
+        <input type="password" id="oldPass">
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label for="newPass">Новый пароль</label>
+        <input type="password" id="newPass" placeholder="минимум 6 символов">
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label for="newPass2">Повторите новый пароль</label>
+        <input type="password" id="newPass2">
+      </div>
+      <button class="btn btn-primary btn-block" id="doChangePass" style="margin-top:16px;">Сохранить и войти</button>
+    </div>
+
+    <div id="cabinetView" style="display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+        <div>
+          <h1 style="font-size:24px;margin-bottom:4px;">Здравствуйте, <span id="userName">—</span></h1>
+          <p style="color:var(--text-secondary);font-size:14px;" id="userLogin"></p>
+        </div>
+        <button class="btn btn-ghost btn-small" id="doLogout">Выйти</button>
+      </div>
+
+      <div id="changePassHint" class="change-pass-box" style="display:none;">
+        <strong>Рекомендуем сменить пароль</strong>
+        <div class="form-group" style="margin-top:10px;">
+          <input type="password" id="hintOld" placeholder="Текущий пароль">
+        </div>
+        <div class="form-group" style="margin-top:8px;">
+          <input type="password" id="hintNew" placeholder="Новый пароль">
+        </div>
+        <button class="btn btn-small btn-primary" id="hintChange" style="margin-top:10px;">Сменить</button>
+      </div>
+
+      <h2 style="font-size:18px;margin-bottom:14px;">Ваши заявки</h2>
+      <div id="userOrders"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    const loginView = document.getElementById("loginView");
+    const forceChangeView = document.getElementById("forceChangeView");
+    const cabinetView = document.getElementById("cabinetView");
+    let currentLogin = null;
+
+    function statusLabel(id) {
+      const s = (window.RyzenHubAdmin?.STATUSES || []).find(x => x.id === id);
+      return s ? s.label : (id || "Новая");
+    }
+    function statusColor(id) {
+      const s = (window.RyzenHubAdmin?.STATUSES || []).find(x => x.id === id);
+      return s ? s.color : "#00d4ff";
+    }
+
+    function showCabinet(user) {
+      loginView.style.display = "none";
+      forceChangeView.style.display = "none";
+      cabinetView.style.display = "block";
+      document.getElementById("userName").textContent = user.name || "Клиент";
+      document.getElementById("userLogin").textContent = user.login;
+      currentLogin = user.login;
+
+      const allOrders = window.RyzenHubAdmin.getOrders();
+      const myIds = user.orderIds || [];
+      const myOrders = allOrders.filter(o => myIds.includes(o.id) || 
+        (normalizePhone(o.phone) === user.phone) ||
+        (user.email && o.email && o.email.toLowerCase() === user.email.toLowerCase())
+      );
+
+      const box = document.getElementById("userOrders");
+      if (myOrders.length === 0) {
+        box.innerHTML = '<div class="empty-state"><p>Пока нет заявок.</p><a href="index.html#order" class="btn btn-primary" style="margin-top:12px;">Оставить заявку</a></div>';
+        return;
+      }
+      box.innerHTML = myOrders.map(o => `
+        <div class="order-item">
+          <div class="oid">${o.id} · ${o.date}</div>
+          <div style="margin-top:6px;font-size:14px;">
+            ${Array.isArray(o.services) ? o.services.join(", ") : o.services}<br>
+            Бюджет: ${o.budget}
+            ${o.details && o.details !== "—" ? "<br>Детали: " + o.details : ""}
+          </div>
+          <span class="status-badge" style="background:${statusColor(o.status)}22;color:${statusColor(o.status)}">${statusLabel(o.status)}</span>
+          ${(o.statusHistory || []).length ? `<div style="font-size:12px;color:var(--text-secondary);margin-top:8px;">История: ${(o.statusHistory || []).map(h => h.at + " — " + statusLabel(h.status)).join(" · ")}</div>` : ""}
+        </div>
+      `).join("");
+    }
+
+    async function tryAutoLogin() {
+      const session = getSession();
+      if (!session) return;
+      const users = window.RyzenHubAdmin.getUsers();
+      const user = users[session.login];
+      if (!user) return;
+      if (user.mustChangePassword) {
+        currentLogin = user.login;
+        loginView.style.display = "none";
+        forceChangeView.style.display = "block";
+        return;
+      }
+      showCabinet(user);
+    }
+
+    document.getElementById("doLogin").addEventListener("click", async () => {
+      const login = document.getElementById("loginInput").value;
+      const pass = document.getElementById("passInput").value;
+      if (!login || !pass) { alert("Введите логин и пароль"); return; }
+      const res = await loginUser(login, pass);
+      if (!res.ok) { alert(res.msg); return; }
+      currentLogin = res.user.login;
+      if (res.mustChange) {
+        loginView.style.display = "none";
+        forceChangeView.style.display = "block";
+      } else {
+        showCabinet(res.user);
+      }
+    });
+
+    document.getElementById("doChangePass").addEventListener("click", async () => {
+      const oldP = document.getElementById("oldPass").value;
+      const newP = document.getElementById("newPass").value;
+      const newP2 = document.getElementById("newPass2").value;
+      if (newP.length < 6) { alert("Пароль минимум 6 символов"); return; }
+      if (newP !== newP2) { alert("Пароли не совпадают"); return; }
+      const ok = await changePassword(currentLogin, oldP, newP);
+      if (!ok) { alert("Неверный текущий пароль"); return; }
+      const users = window.RyzenHubAdmin.getUsers();
+      showCabinet(users[currentLogin]);
+    });
+
+    document.getElementById("hintChange")?.addEventListener("click", async () => {
+      const oldP = document.getElementById("hintOld").value;
+      const newP = document.getElementById("hintNew").value;
+      if (newP.length < 6) { alert("Пароль минимум 6 символов"); return; }
+      const ok = await changePassword(currentLogin, oldP, newP);
+      if (!ok) { alert("Неверный текущий пароль"); return; }
+      alert("Пароль изменён");
+      document.getElementById("changePassHint").style.display = "none";
+    });
+
+    document.getElementById("doLogout").addEventListener("click", () => {
+      logoutUser();
+      location.reload();
+    });
+
+    // helper from app.js scope
+    function normalizePhone(p) {
+      return (p || "").replace(/\D/g, "").replace(/^8/, "7");
+    }
+
+    tryAutoLogin();
+  </script>
+</body>
+</html>
